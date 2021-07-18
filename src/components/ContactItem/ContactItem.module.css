@@ -1,0 +1,38 @@
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.information {
+  overflow: hidden;
+}
+
+.name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.phone {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.button {
+  text-transform: capitalize;
+  border-radius: 5px;
+  border: 1px solid lightslategray;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.button:active {
+  background-color: #4794fd;
+}

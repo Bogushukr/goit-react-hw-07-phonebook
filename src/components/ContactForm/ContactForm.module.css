@@ -1,0 +1,54 @@
+.ContactsForm {
+  grid-area: create;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'create-form create-title';
+  grid-gap: 10px;
+  height: min-content;
+}
+
+.ContactsForm__title {
+  grid-area: create-title;
+  padding: 15px 5px;
+  align-self: stretch;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.ContactsForm__form {
+  grid-area: create-form;
+  padding: 10px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+.ContactsForm__label {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: bold;
+}
+.ContactsForm__input {
+  margin-top: 5px;
+  border: 1px solid lightslategrey;
+}
+
+.ContactsForm__input:focus {
+  box-shadow: 0 0 2px 2px #4794fd;
+  outline: none;
+}
+
+.ContactsForm__button {
+  text-transform: capitalize;
+  border-radius: 5px;
+  border: 1px solid lightslategray;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.ContactsForm__button:active {
+  background-color: #4794fd;
+}
