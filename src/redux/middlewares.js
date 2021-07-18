@@ -9,13 +9,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-const middleware = [
+// const thunk =
+//   ({ dispatch, getState }) =>
+//   next =>
+//   action =>
+//     typeof action === 'function' ? action(dispatch, getState) : next(action);
+
+const middlewares = [
   ...getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  // thunk,
   logger,
 ];
 
-export default middleware;
+export default middlewares;

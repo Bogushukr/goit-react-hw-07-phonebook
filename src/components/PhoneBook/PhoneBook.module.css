@@ -1,6 +1,5 @@
 .PhoneBook {
-  grid-gap: 10px;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas: 'filter create' 'contacts create';
+  display: block;
+  max-width: 320px;
+  margin: auto;
 }

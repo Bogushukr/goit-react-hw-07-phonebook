@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from 'redux/contacts/contacts-actions';
 import styles from './ContactForm.module.css';
 
 class ContactForm extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
+    setNotify: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   state = { name: '', number: '' };
+
+  timer = null;
 
   onChangeInputsHandler = event => {
     const { name, value } = event.currentTarget;
@@ -24,9 +25,14 @@ class ContactForm extends Component {
   onSubmitHandler = event => {
     event.preventDefault();
     const { name, number } = this.state;
-    const { onSave } = this.props;
+    const { onSave, setNotify } = this.props;
     if (this.findContact(name)) {
-      alert(`${name} is already in contacts.`);
+      setNotify({ state: true, message: `${name} is already in contacts.` });
+      this.timer = setTimeout(() => {
+        setNotify({
+          state: false,
+        });
+      }, 2000);
       return;
     }
     onSave(name, number);
@@ -37,11 +43,14 @@ class ContactForm extends Component {
     this.setState({ name: '', number: '' });
   };
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   render() {
     const { name, number } = this.state;
     return (
       <section className={styles.ContactsForm}>
-        <h1 className={styles.ContactsForm__title}>Phonebook</h1>
         <form
           className={styles.ContactsForm__form}
           onSubmit={this.onSubmitHandler}
@@ -86,10 +95,5 @@ class ContactForm extends Component {
     );
   }
 }
-const mapStateToProps = state => ({ items: state.contacts.items });
 
-const mapDispatchToProps = dispatch => ({
-  onSave: (name, number) => dispatch(actions.addContact(name, number)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;

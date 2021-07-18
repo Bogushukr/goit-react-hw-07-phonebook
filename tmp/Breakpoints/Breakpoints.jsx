@@ -10,3 +10,5 @@ Breakpoints.defaultProps = {};
 Breakpoints.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
 };
+
+export default Breakpoints;

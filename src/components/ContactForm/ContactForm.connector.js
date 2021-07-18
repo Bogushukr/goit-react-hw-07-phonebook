@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ContactFormH from './ContactFormH';
+import ContactForm from './ContactForm';
 
 import { showExistNotify } from 'redux/contacts/contacts-actions';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   setNotify: value => dispatch(showExistNotify(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactFormH);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

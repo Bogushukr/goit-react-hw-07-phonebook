@@ -6,7 +6,7 @@ import { contactsReducer } from 'redux/contacts/contacts-reducers';
 const persistContactsConfig = {
   key: 'phone-contacts',
   storage,
-  blacklist: ['filter'],
+  blacklist: ['filter', 'notify', 'loading'],
 };
 
 export default persistReducer(persistContactsConfig, contactsReducer);

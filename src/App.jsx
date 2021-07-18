@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import PhoneBook from './components/PhoneBook/PhoneBook';
+import PhoneBook from './components/PhoneBook';
 import routes from 'routes';
 
 const App = () => {

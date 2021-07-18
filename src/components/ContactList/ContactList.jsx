@@ -1,48 +1,53 @@
-import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './ContactList.module.css';
-import ContactItem from 'components/ContactItem/ContactItem';
+import ContactItem from 'components/ContactItem';
 
-const ContactList = ({ items }) => {
-  if (!items.length) {
+import listItemsActions from 'animations/listItemsActions.module.css';
+
+const ContactList = ({ contacts, contactListRef, onDelete }) => {
+  if (!contacts.length) {
     return null;
   }
   return (
-    <section className={styles.ContactsList}>
-      <h2 className={styles.ContactsList__title}>Contacts</h2>
-      <ul className={styles.ContactsList__list}>
-        {items.map(({ id }) => {
-          return <ContactItem id={id} key={id} />;
+    <section className={styles.ContactsList} ref={contactListRef}>
+      <TransitionGroup component="ul" className={styles.ContactsList__list}>
+        {contacts.map(({ id, name, number }) => {
+          const contactItemRef = React.createRef();
+          return (
+            <CSSTransition
+              key={id}
+              timeout={250}
+              classNames={listItemsActions}
+              appear={true}
+              nodeRef={contactItemRef}
+            >
+              <ContactItem
+                name={name}
+                number={number}
+                cssRef={contactItemRef}
+                onDelete={() => onDelete(id)}
+              />
+            </CSSTransition>
+          );
         })}
-      </ul>
+      </TransitionGroup>
     </section>
   );
 };
 
-ContactList.defaultProps = { items: [] };
+ContactList.defaultProps = { contacts: [] };
 
 ContactList.propTypes = {
-  items: PropTypes.arrayOf(
+  contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };
 
-const filterContacts = (items, filter) => {
-  const search = filter.trim().toLowerCase();
-  if (filter) {
-    return items.filter(({ name }) => name.toLowerCase().indexOf(search) >= 0);
-  }
-  return [...items];
-};
-
-const mapStateToProps = state => {
-  const { items, filter } = state.contacts;
-  return { items: filterContacts(items, filter) };
-};
-
-export default connect(mapStateToProps, null)(ContactList);
+export default ContactList;
